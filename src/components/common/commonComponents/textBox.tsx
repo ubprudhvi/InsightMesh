@@ -1,19 +1,34 @@
 import { ICommonTextFieldProps } from '@/utils/commonInterface';
-import { TextField } from '@mui/material'
+import { TextField, TextFieldProps } from '@mui/material'
+import React, { FC } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+type ITextField = TextFieldProps & {
+    handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+    onError?: (event: React.FocusEvent<HTMLInputElement>) => void;
+    name: string;
+    control: any;
+};
 
 
+export const TextBox: FC<ITextField> = (props) => {
 
-export const TextBox = (props: ICommonTextFieldProps) => {
+    const { name, label,control, defaultValue, ...rest } = props
+// const { formState: { errors } } = useFormContext();
 
-    const { name, label,placeholder, variant = 'outlined', fullWidth = true, margin = 'normal' } = props;
     return (
-        <TextField
+        <Controller
             name={name}
-            placeholder={placeholder}
-            label={label}
-            variant={variant}
-            fullWidth
-            margin={margin}
+            control={control}
+            defaultValue={defaultValue || ''}
+            render={({ field, fieldState }) => (
+                <TextField
+                    {...field}
+                    {...rest}
+                    error={Boolean(fieldState.error)}
+                    helperText={fieldState.error?.message || rest.helperText}
+                />
+            )}
         />
     );
 }

@@ -1,0 +1,10 @@
+.primaryButtonType {
+    padding: 10px 20px !important;
+    border-radius: 4px;
+}
+
+.secondary-button-type {
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}

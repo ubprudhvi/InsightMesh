@@ -1,1 +1,1 @@
-export const  login = '/user/login'
+export const  login = '../../src/pages/user/login';

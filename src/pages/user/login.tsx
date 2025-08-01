@@ -2,10 +2,13 @@
 import dynamic from 'next/dynamic'
 
 
-const LoginPage = dynamic(()=> import ('../../components/login/login'), { ssr: false},
+const LoginPage = dynamic(() => import('../../components/login/login'), { ssr: false },
 );
 
 const LoginPageHome = () => {
-<LoginPage/>
+    return (
+        <LoginPage />
+
+    )
 }
 export default LoginPageHome
