@@ -12,13 +12,18 @@ function* rootsaga() {
     ]);
 }
 
-const middleware = [];
-const composeEnhancer = (typeof window !== undefined && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-    compose
+const middlewares = [];
+const composeEnhancers =
+    (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+    compose;
 
-middleware.push(sagaMiddleware)
+if (process.env.NODE_ENV === 'development') {
+    // middlewares.push(logger);
+}
 
-const store = createStore(reducers, composeEnhancer(applyMiddleware(...middleware)));
+middlewares.push(sagaMiddleware);
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(...middlewares)));
 
 sagaMiddleware.run(rootsaga)
 
